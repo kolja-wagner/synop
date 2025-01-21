@@ -1,5 +1,6 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python
-# Edit at https://www.toptal.com/developers/gitignore?templates=python
+tool/data/*.html
+src/synop/location/data/*.csv
+
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
