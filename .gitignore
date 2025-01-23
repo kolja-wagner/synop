@@ -1,6 +1,6 @@
 tool/data/*.html
 src/synop/location/data/*.csv
-
+data/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
