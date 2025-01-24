@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "synop"
-version = "0.1"
+dynamic = ["version"]
 description = "package to handle meteorological reports"
 #long_description = file: src/README_package.md
 #long_description_content_type = text/markdown
@@ -20,7 +20,10 @@ dependencies = [
     "pysolar >=0.11",
     "pint >= 0.20",
     "tqdm >= 4.66",
-    "uncertainties >= 3"
+    "uncertainties >= 3",
+    
+    "httpx",
+    
 ]
 
 #[project.optional-dependencies]
@@ -43,7 +46,10 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src/"]
-include = ["synop"]
+include = ["synop"] 
+
+[tool.setuptools.dynamic]
+version = {attr = "synop.__version__"}
 
 
 [tool.pytest.ini_options]
