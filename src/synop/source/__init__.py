@@ -5,4 +5,4 @@ Created on Fri Jan 24 20:33:51 2025
 @author: Kolja
 """
 
-from .ogimet import SYNOP, OGIMET
+from .ogimet import SYNOP_PARAM, OGIMET

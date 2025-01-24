@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
+"""
+This module defines a Location class.
+
+@author: Kolja
+"""
 from dataclasses import dataclass
 import pandas as pd
 
 from synop.path import PATH_DEFAULT_STATIONS
 
 STATION_TABLE: pd.DataFrame = None
-""" The lookup table, loaded from :const:`PATH_DEFAULT_STATIONS`. If the file is missing,
+""" The lookup table, loaded from :const:`synop.path.PATH_DEFAULT_STATIONS`. If the file is missing,
 a script is provided within the ``tools/`` directory."""
 
 @dataclass
 class Location:
     """
-    Represents a location.
+    A location dataclass. It is designed to be compatible with WMO Weather stations.
+    See the factory functions below.
 
     Attributes:
         name (str): The name of the location.
