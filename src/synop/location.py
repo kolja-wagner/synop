@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 from dataclasses import dataclass
-from pathlib import Path
 import pandas as pd
 
-PATH_STATION_CSV    = Path(__file__).parent.joinpath("data","ogimet_stations_germany.csv")
-""" The path where the lookup table data is stored."""
-
-PATH_STATION_CSV.parent.mkdir(exist_ok=True)
+from synop.path import PATH_DEFAULT_STATIONS
 
 STATION_TABLE: pd.DataFrame = None
-""" The lookup table, loaded from :const:`PATH_STATION_CSV`. If the file is missing,
+""" The lookup table, loaded from :const:`PATH_DEFAULT_STATIONS`. If the file is missing,
 a script is provided within the ``tools/`` directory."""
 
 @dataclass
@@ -89,7 +85,7 @@ class Location:
             A :class:`Location` that is generated from the :const:`STATION_TABLE`.
         """
         if STATION_TABLE is None:
-            raise FileNotFoundError(f"{PATH_STATION_CSV.resolve()} could not be loaded.")
+            raise FileNotFoundError(f"{PATH_DEFAULT_STATIONS.resolve()} could not be loaded.")
         
         rows = STATION_TABLE[STATION_TABLE["Name"].str.lower() == name.lower()]
         if len(rows) == 0:
@@ -126,7 +122,7 @@ class Location:
         """
                 
         if STATION_TABLE is None:
-            raise FileNotFoundError(f"{PATH_STATION_CSV.resolve()} could not be loaded.")
+            raise FileNotFoundError(f"{PATH_DEFAULT_STATIONS.resolve()} could not be loaded.")
         
         rows = STATION_TABLE[STATION_TABLE["WMO INDEX"] == wmo_index]
         if len(rows) == 0:
@@ -160,7 +156,7 @@ class Location:
            A :class:`Location` generated from the :const:`STATION_TABLE` data.
         """
         if STATION_TABLE is None:
-            raise FileNotFoundError(f"{PATH_STATION_CSV.resolve()} could not be loaded.")
+            raise FileNotFoundError(f"{PATH_DEFAULT_STATIONS.resolve()} could not be loaded.")
         
         rows = STATION_TABLE[STATION_TABLE["ICAO"] == icao_id]
         if len(rows) == 0:
@@ -205,8 +201,8 @@ def parse_coord_str(coord_str: str) -> float:
     return factor*value
 
 def load_station_table():
-    """ The loading function to populate :const:`STATION_TABLE` from :const:`PATH_STATION_CSV`"""
-    table = pd.read_csv(PATH_STATION_CSV)
+    """ The loading function to populate :const:`STATION_TABLE` from :const:`PATH_DEFAULT_STATIONS`"""
+    table = pd.read_csv(PATH_DEFAULT_STATIONS, parse_dates=[8,9])
     assert table.shape[1] == 10
     return table
 
